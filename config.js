@@ -1,24 +1,22 @@
 // Author : Sai Rahul Kodumuru (B00875628)
 require('dotenv').config();
 
-if (process.env.NODE_ENV === 'production') {
-  // Heroku
-  PORT = process.env.PORT;
-  ENV = 'PRODUCTION';
-} else {
-  // Local
-  PORT = 3000;
-  ENV = 'DEVELOPMENT';
-}
-
-NODE_JS_VERSION = process.version;
-DB_URL = process.env.PROD_DB_URL;
+const config = {
+  ENV: process.env.NODE_ENV || 'Development',
+  PORT: process.env.PORT || 5000,
+  DB_NAME: process.env.DB_NAME,
+  DB_URL:
+    process.env.PROD_DB_URL +
+      process.env.DB_NAME +
+      process.env.DB_CONN_OPTIONS || 'mongodb://localhost:27017/stockverse',
+  NODE_JS_VERSION: process.version || 'NodeJS Version not found',
+};
 
 console.log(
   `\n-> Time: ${new Date()}
--> Current Environment: ${ENV}
--> NodeJS Version: ${NODE_JS_VERSION}
+-> Current Environment: ${config.ENV}
+-> NodeJS Version: ${config.NODE_JS_VERSION}
 -> Loading the env context with: ${Object.keys(process.env).length} keys`
 );
 
-module.exports = { PORT, ENV, DB_URL };
+module.exports = config;

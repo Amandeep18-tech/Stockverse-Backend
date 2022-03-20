@@ -6,23 +6,18 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 // User Imports
-const { PORT, DB_URL } = require('./config');
-
+const { PORT, DB_URL, DB_NAME } = require('./config');
 // Initialize the App and DB
 const app = express();
-//connect to mongoose
 mongoose
   .connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('-> Connected to MongoDB\n'))
+  .then(() => console.log(`-> Connected to MongoDB on database: ${DB_NAME}\n`))
   .catch((err) => {
-    console.log('-> Failed to Connect to MongoDB');
-    console.log(err.message);
-    process.exit(1);
+    console.log(`-> Failed to Connect to MongoDB with error: ${err.message}`);
   });
-
 
 // Get the Routers
 const userRouter = require('./routers/userRouter');
@@ -49,7 +44,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(
-    `-> Stockverse api is Listening on port: http://localhost:${PORT}`
-  );
+  console.log(`-> Stockverse API is listening on: http://localhost:${PORT}`);
 });
