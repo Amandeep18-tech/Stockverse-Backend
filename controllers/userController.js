@@ -7,7 +7,6 @@ exports.findUser = async (req, res) => {
 
     res.status(200).json({
       message: 'User found',
-      user: 'Batman!',
       stocks,
     });
   } catch (err) {
