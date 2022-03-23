@@ -1,13 +1,15 @@
 // Author : Sai Rahul Kodumuru (B00875628)
-const Stock = require('../models/Stock');
+const User = require('../models/User');
+const mongoose = require('mongoose');
+const debug = require('debug')('app:UserController');
 
 exports.findUser = async (req, res) => {
   try {
-    const stocks = await Stock.find({});
+    const user = await User.find({});
 
     res.status(200).json({
       message: 'User found',
-      stocks,
+      user,
     });
   } catch (err) {
     console.log(err.message);
@@ -16,4 +18,24 @@ exports.findUser = async (req, res) => {
       success: false,
     });
   }
+};
+
+exports.getUserById = (req, res, next, id) => {
+  if (id.length < 12) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid user id',
+    });
+  }
+
+  User.findById(mongoose.Types.ObjectId(id), (err, user) => {
+    if (err || !user) {
+      res.status(404).json({
+        success: false,
+        message: 'User not found',
+      });
+    }
+    req.profile = { userId: user._id };
+    next();
+  });
 };
