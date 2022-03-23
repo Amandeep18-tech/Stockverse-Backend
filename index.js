@@ -21,6 +21,7 @@ mongoose
 
 // Get the Routers
 const userRouter = require('./routers/userRouter');
+const portfolioRouter = require('./routers/portfolioRouter');
 
 // App Middleware
 app.use(bodyParser.json());
@@ -28,13 +29,13 @@ app.use(cors());
 
 // Routes
 app.use('/api', userRouter);
+app.use('/api', portfolioRouter);
 
 // Welcome to API handler
 app.get('/', (req, res) => {
   res.status(200).json({
-    message:
-      'Welcome to the API!!! Please follow the instructions in the README.md file.',
     success: true,
+    message: 'Welcome to the Stockverse API!!!',
   });
 });
 
