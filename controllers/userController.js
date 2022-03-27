@@ -39,3 +39,19 @@ exports.getUserById = (req, res, next, id) => {
     next();
   });
 };
+
+// Author : Pallavi Cherukupalli (B00875628)
+exports.getAllusers = async (req, res) => {
+  try{
+  const usersList = await User.find({});
+  res.status(200).json({
+    users: usersList,
+    success: true
+  });
+  }catch (err) {
+  res.status(500).json({
+    message: err.message,
+    success: false,
+  });
+  }
+};
