@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const wishlistRouter = express.Router();
 const wishlistController = require('../controllers/wishlistController');
 wishlistRouter.get('/allWishlists', wishlistController.getAllWishlists)
