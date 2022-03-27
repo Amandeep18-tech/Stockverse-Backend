@@ -141,9 +141,29 @@ const addWishlist = async (req, res) => {
     });
   }
 };
+
+//Author : Pallavi Cherukupalli (B00887062)
+const getAllWishlists = async (req, res) =>{
+    try{
+        const allWishlists = await WishlistModel.find({});
+        res.status(200).json({
+          wishlist: allWishlists,
+          success: true
+        });
+        }catch (err) {
+        res.status(500).json({
+          message: err.message,
+          success: false,
+        });
+        }
+}
 module.exports = {
-  updateWishlist,
-  deleteWishlist,
-  getWishlistListByUserIdorId,
-  addWishlist,
+    updateWishlist,
+    deleteWishlist,
+    getWishlistListByUserIdorId,
+    addWishlist,
+    getAllWishlists
 };
+
+
+ 
