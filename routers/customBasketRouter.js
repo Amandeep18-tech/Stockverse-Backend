@@ -2,14 +2,32 @@
 const express = require("express");
 
 const {
-  addToPortfolio,
-  getAllPortfoliosByUserId,
-} = require("../controllers/portfolioController");
-const { getUserById } = require("../controllers/userController");
+  getCustomBasket,
+  addCustomBasket,
+  deleteCustomBasket,
+  getCustomBasketById,
+  getCustomBasketByVisibility,
+} = require("../controllers/customBasketController");
 
 const customBasketRouter = express.Router();
 
-customBasketRouter.post("/portfolio/add/:userId", addToPortfolio);
-customBasketRouter.get("/get", getAllPortfoliosByUserId);
+customBasketRouter.get("/getCustomBasketList", getCustomBasket);
+customBasketRouter.post("/addCustomBasket", addCustomBasket);
+customBasketRouter.delete(
+  "/deleteCustomBasket/:customBasketId",
+  deleteCustomBasket
+);
+customBasketRouter.get(
+  "/getCustomBasketById/:customBasketId",
+  getCustomBasketById
+);
+customBasketRouter.get(
+  "/getCustomBasketByVisibility",
+  getCustomBasketByVisibility
+);
+
+customBasketRouter.use("*", (req, res) => {
+  res.status(400).json({ success: false, message: "Page not found" });
+});
 
 module.exports = customBasketRouter;
