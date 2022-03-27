@@ -1,9 +1,14 @@
 // Author : Sai Rahul Kodumuru (B00875628)
 // Package Imports
+require("dotenv").config();
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
+require("./models/User");
+
+
+
 
 // User Imports
 const { PORT, DB_URL, DB_NAME } = require('./config');
@@ -21,15 +26,23 @@ mongoose
 
 // Get the Routers
 const userRouter = require('./routers/userRouter');
-const portfolioRouter = require('./routers/portfolioRouter');
+// const portfolioRouter = require('./routers/portfolioRouter');
 
 // App Middleware
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
 app.use(bodyParser.json());
 app.use(cors());
 
+
+
 // Routes
-app.use('/api', userRouter);
-app.use('/api', portfolioRouter);
+app.use("/api", userRouter);
+// app.use('/api', portfolioRouter);
 
 // Welcome to API handler
 app.get('/', (req, res) => {
