@@ -20,8 +20,8 @@ const portfolioSchema = new mongoose.Schema(
     instrumentType: {
       type: String,
       required: true,
-      enum: ['equity', 'crypto'],
-      default: 'equity',
+      enum: ['Equity', 'Crypto'],
+      default: 'Equity',
       trim: true,
     },
     instrumentRegion: {

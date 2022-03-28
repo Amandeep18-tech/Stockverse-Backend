@@ -23,6 +23,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "axios": "^0.26.1",
     "body-parser": "^1.19.2",
     "concurrently": "^7.0.0",
     "cors": "^2.8.5",
@@ -33,12 +34,14 @@
     "joi": "^17.6.0",
     "joi-password-complexity": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.8",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
+    "validator": "^13.7.0",
+    "mongoose": "^6.2.7",
+    "morgan": "^1.10.0",
     "stripe": "^8.210.0",
-    "uuid": "^8.3.2",
-    "validator": "^13.7.0"
+    "supports-color": "^9.2.1",
+    "uuid": "^8.3.2"
   }
 }

@@ -1,17 +1,15 @@
 // Author : Sai Rahul Kodumuru (B00875628)
 // Package Imports
-require("dotenv").config();
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-require("./models/User");
-
-
-
+require('./models/User');
+const morgan = require('morgan');
 
 // User Imports
-const { PORT, DB_URL, DB_NAME } = require("./config");
+const { PORT, DB_URL, DB_NAME } = require('./config');
 // Initialize the App and DB
 const app = express();
 console.log(DB_URL);
@@ -26,18 +24,17 @@ mongoose
   });
 
 // Get the Routers
-const userRouter = require("./routers/userRouter");
-const portfolioRouter = require("./routers/portfolioRouter");
-const wishlistRouter = require("./routers/wishlistRouter");
-const customBasketRouter = require("./routers/customBasketRouter");
-const paymentRouter = require("./routers/paymentRouter");
+const userRouter = require('./routers/userRouter');
+const portfolioRouter = require('./routers/portfolioRouter');
+const wishlistRouter = require('./routers/wishlistRouter');
+const customBasketRouter = require('./routers/customBasketRouter');
+const paymentRouter = require('./routers/paymentRouter');
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:3003",
-  "http://localhost:3001",
-  "http://localhost:3002",
-  "http://localhost:3000",
+  'http://localhost:3003',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://localhost:3000',
 ];
 const corsOptions = {
   origin: allowedOrigins,
@@ -45,34 +42,29 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 // App Middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('tiny'));
 app.use(cors(corsOptions));
 
-
-
 // Routes
-app.use("/api", userRouter);
-app.use("/api", portfolioRouter);
-app.use("/api/wishlist", wishlistRouter);
-app.use("/api/customBasket", customBasketRouter);
-app.use("/api", paymentRouter);
+app.use('/api', userRouter);
+app.use('/api', portfolioRouter);
+app.use('/api/wishlist', wishlistRouter);
+app.use('/api/customBasket', customBasketRouter);
+app.use('/api', paymentRouter);
 
 // Welcome to API handler
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
-    message: "Welcome to the Stockverse API!!!",
+    message: 'Welcome to the Stockverse API!!!',
   });
 });
 
 // Invalid Route Handler
-app.get("*", (req, res) => {
-  res.status(400).json({ success: false, message: "Page not found" });
+app.get('*', (req, res) => {
+  res.status(400).json({ success: false, message: 'Page not found' });
 });
 
 app.listen(PORT, () => {

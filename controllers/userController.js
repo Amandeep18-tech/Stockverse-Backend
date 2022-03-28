@@ -28,9 +28,9 @@ exports.getUserById = (req, res, next, id) => {
     });
   }
 
-  User.findById(mongoose.Types.ObjectId(id), (err, user) => {
+  User.findById(mongoose.Types.ObjectId(id.trim()), (err, user) => {
     if (err || !user) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: 'User not found',
       });
