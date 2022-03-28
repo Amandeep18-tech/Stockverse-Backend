@@ -9,6 +9,7 @@ const config = {
     process.env.PROD_DB_URL +
       process.env.DB_NAME +
       process.env.DB_CONN_OPTIONS || 'mongodb://localhost:27017/stockverse',
+  STRIPE_KEY: process.env.STRIPE_KEY,
   NODE_JS_VERSION: process.version || 'NodeJS Version not found',
 };
 
