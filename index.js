@@ -1,9 +1,14 @@
 // Author : Sai Rahul Kodumuru (B00875628)
 // Package Imports
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const mongoose = require("mongoose");
+require("dotenv").config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+require("./models/User");
+
+
+
 
 // User Imports
 const { PORT, DB_URL, DB_NAME } = require("./config");
@@ -43,8 +48,10 @@ app.use(
     extended: false,
   })
 );
-app.use(bodyParser.json());
+
 app.use(cors(corsOptions));
+
+
 
 // Routes
 app.use("/api", userRouter);
