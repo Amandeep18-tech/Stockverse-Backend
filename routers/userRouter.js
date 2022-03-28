@@ -6,6 +6,7 @@ const signInController = require('../controllers/signInController');
 const securityQuestionController = require('../controllers/securityQuestionController');
 const userController = require('../controllers/userController');
 const forgetPasswordController = require('../controllers/forgetPasswordController');
+
 const userRouter = express.Router();
 
 userRouter.post('/register',registerController.createUser);

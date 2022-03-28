@@ -1,12 +1,11 @@
-// Author : Sai Rahul Kodumuru (B00875628)
-
-
+// Author : Amandeep Singh Matta(B00886925)
 const { User } = require("../models/User");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
-exports. checkUser = async (req, res) => {
+exports.checkUser = async (req, res) => {
 	try {
+		console.log(req.body);
 		const { error } = validate(req.body);
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });

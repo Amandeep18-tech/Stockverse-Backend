@@ -1,14 +1,9 @@
-
 const { User, validate } = require("../models/User");
-
 const bcrypt = require("bcrypt");
 
-exports.createUser= async (req, res) => {
+exports.createUser = async (req, res) => {
 	try {
-		const { error } = validate(req.body);
-		if (error)
-			return res.status(400).send({ message: error.details[0].message });
-
+		console.log(req.body);
 		const user = await User.findOne({ email: req.body.email });
 		if (user)
 			return res
@@ -20,7 +15,7 @@ exports.createUser= async (req, res) => {
 		const hashConfirmPassword = await bcrypt.hash(req.body.cpassword, salt);
 		if(hashPassword===hashConfirmPassword){
 			
-			await new User({ ...req.body, password: hashPassword,securityAnswer: hashSecurityAnswer,cpassword:hashConfirmPassword,securityQuestion:req.body.securityQuestion}).save();
+			await new User({ ...req.body, password: hashPassword,securityAnswer: hashSecurityAnswer,cpassword:hashConfirmPassword}).save();
 		}
 		else{
 			res.status(409).send({ message: "Passwords dont match" });

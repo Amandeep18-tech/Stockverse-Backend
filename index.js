@@ -48,7 +48,7 @@ app.use(
     extended: false,
   })
 );
-
+app.use(express.json());
 app.use(cors(corsOptions));
 
 

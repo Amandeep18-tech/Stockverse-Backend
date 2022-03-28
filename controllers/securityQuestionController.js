@@ -5,7 +5,7 @@ const securityQuestion = require("../models/SecurityQuestion");
 
 exports.getRandomQuestion = async (req, res) => {
     try{
-    const randomQuestion = await securityQuestion.aggregate([{$sample: {size: 1}}]);
+    const randomQuestion = await securityQuestion.aggregate([{$sample: {size: 3}}]);
     res.status(200).json({
       questions: randomQuestion,
       success: true
