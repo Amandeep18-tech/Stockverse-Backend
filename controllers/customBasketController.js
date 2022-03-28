@@ -38,7 +38,7 @@ const addCustomBasket = async (req, res) => {
     newModel
       .save()
       .then((result) => {
-        res.status(201).json({
+        res.status(200).json({
           message: "Custom Basket Added to the database",
           status: true,
         });
