@@ -9,10 +9,6 @@ require("./models/User");
 
 
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const mongoose = require("mongoose");
 
 // User Imports
 const { PORT, DB_URL, DB_NAME } = require("./config");
@@ -51,7 +47,7 @@ app.use(
     extended: false,
   })
 );
-app.use(bodyParser.json());
+
 app.use(cors(corsOptions));
 
 
