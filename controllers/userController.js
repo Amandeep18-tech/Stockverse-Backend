@@ -42,16 +42,30 @@ exports.getUserById = (req, res, next, id) => {
 
 // Author : Pallavi Cherukupalli (B00875628)
 exports.getAllusers = async (req, res) => {
-  try{
-  const usersList = await User.find({});
-  res.status(200).json({
-    users: usersList,
-    success: true
-  });
-  }catch (err) {
-  res.status(500).json({
-    message: err.message,
-    success: false,
-  });
+  try {
+    const usersList = await User.find({});
+    res.status(200).json({
+      users: usersList,
+      success: true
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+      success: false,
+    });
+  }
+};
+
+// Author : Monisha J (B00881079)
+exports.updateUserSubscription = async (userId) => {
+  try {
+    let user = await User.updateOne(
+      { _id: userId },
+      {$set: { isPremium: true}});
+
+    console.log(user);
+    return user;
+  } catch (err) {
+    return err;
   }
 };
