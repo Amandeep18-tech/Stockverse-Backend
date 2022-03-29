@@ -1,6 +1,7 @@
 // Author : Shiv Gaurang Desai
 const mongoose = require("mongoose");
 
+// Schema for Custom Basket that will be stored in custom_basket collection
 const customBasketSchema = new mongoose.Schema(
   {
     basket_name: String,

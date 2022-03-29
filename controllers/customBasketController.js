@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const customBasketModel = require("../models/CustomBasketModel");
 
+// This api will fetch all the custom basket from mongoDb
 const getCustomBasket = async (req, res) => {
   try {
     customBasketModel
@@ -24,6 +25,8 @@ const getCustomBasket = async (req, res) => {
   }
 };
 
+// This api will add a custom basket in the mongodb database
+// It takes the custom basket object that is send in the body of post request
 const addCustomBasket = async (req, res) => {
   try {
     const newModel = new customBasketModel({
@@ -56,6 +59,7 @@ const addCustomBasket = async (req, res) => {
   }
 };
 
+// This api will delete a custom basket from the mongodb database from the id send in the url
 const deleteCustomBasket = async (req, res) => {
   const id = req.params.customBasketId;
   customBasketModel
@@ -79,6 +83,7 @@ const deleteCustomBasket = async (req, res) => {
     });
 };
 
+// This api will provide a particular Custom basket Id that is present in the url
 const getCustomBasketById = async (req, res) => {
   const id = req.params.customBasketId;
   customBasketModel.findById({ _id: id }).then((result) => {
@@ -93,6 +98,7 @@ const getCustomBasketById = async (req, res) => {
   });
 };
 
+// This api will provide the list of custom basket which has visibility as true
 const getCustomBasketByVisibility = async (req, res) => {
   customBasketModel.find({ visibility: true }).then((result) => {
     console.log(result);
