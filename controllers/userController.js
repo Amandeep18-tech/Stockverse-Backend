@@ -1,5 +1,5 @@
 // Author : Sai Rahul Kodumuru (B00875628)
-const User = require('../models/User');
+const { User } = require('../models/User');
 const mongoose = require('mongoose');
 const debug = require('debug')('app:UserController');
 
@@ -46,7 +46,7 @@ exports.getAllusers = async (req, res) => {
     const usersList = await User.find({});
     res.status(200).json({
       users: usersList,
-      success: true
+      success: true,
     });
   } catch (err) {
     res.status(500).json({
@@ -61,7 +61,8 @@ exports.updateUserSubscription = async (userId) => {
   try {
     let user = await User.updateOne(
       { _id: userId },
-      {$set: { isPremium: true}});
+      { $set: { isPremium: true } }
+    );
 
     console.log(user);
     return user;
