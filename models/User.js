@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
-
+const { ObjectId } = mongoose.Schema;
 const passwordComplexity = require("joi-password-complexity");
 
 const userSchema = new mongoose.Schema({
+	Userid:{ type : ObjectId},
 	firstName: { type: String, required: true },
 	lastName: { type: String, required: true },
 	email: { type: String, required: true },
@@ -13,7 +14,9 @@ const userSchema = new mongoose.Schema({
 	cpassword: { type: String, required: true },
 	securityQuestion: { type: String, required: true },
 	securityAnswer: { type: String, required: true },
-	isPremium: { type: Boolean, require: true, default: false }
+	isPremium: { type: Boolean, default: false },
+	role: { type: Boolean, default: false },
+	hash: {type: String, required: false},
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -23,9 +26,10 @@ userSchema.methods.generateAuthToken = function () {
 	return token;
 };
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 const validate = (data) => {
+	
 	const schema = Joi.object({
 		firstName: Joi.string().required().label("First Name"),
 		lastName: Joi.string().required().label("Last Name"),

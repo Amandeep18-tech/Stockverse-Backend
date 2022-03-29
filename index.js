@@ -42,6 +42,8 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 // App Middleware
+
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('tiny'));
