@@ -1,5 +1,5 @@
 // Author : Sai Rahul Kodumuru (B00875628)
-const User = require('../models/User');
+const {User} = require('../models/User');
 const mongoose = require('mongoose');
 const debug = require('debug')('app:UserController');
 
