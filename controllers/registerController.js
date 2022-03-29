@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 exports.createUser = async (req, res) => {
 	try {
 		console.log(req.body);
+		
 		const user = await User.findOne({ email: req.body.email });
 		if (user)
 			return res

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
-
+const { ObjectId } = mongoose.Schema;
 const passwordComplexity = require("joi-password-complexity");
 const userSchema = new mongoose.Schema(
   {
@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
 );
 
 const userSchema = new mongoose.Schema({
+	Userid:{ type : ObjectId},
 	firstName: { type: String, required: true },
 	lastName: { type: String, required: true },
 	email: { type: String, required: true },

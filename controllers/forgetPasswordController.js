@@ -1,6 +1,7 @@
 const { User } = require("../models/User");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
 exports.verifyUser = async (req, res) => {
     try {
         const { error } = validate(req.body);
@@ -26,11 +27,13 @@ const validate = (data) => {
 
 exports.getSecurityQuestionOfUser = async (req, res) => {
     try {
-        const { error } = validate(req.body);
+        
+        console.log(req.body.id);
         if (error)
             return res.status(400).send({ message: error.details[0].message });
 
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findById(mongoose.Types.ObjectId(req.body.id));
+        console.log(user.Userid);
         if (!user)
             return res.status(401).send({ message: "Invalid Email " });
         res.status(200).send({ message: "Question found", question: user.securityQuestion });
