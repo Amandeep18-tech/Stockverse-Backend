@@ -4,27 +4,6 @@ const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const { ObjectId } = mongoose.Schema;
 const passwordComplexity = require("joi-password-complexity");
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-      maxlength: 80,
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    isPremium: {
-      type: Boolean,
-      require: true,
-      default: false
-    }
-  },
-  { timestamps: true }
-);
 
 const userSchema = new mongoose.Schema({
 	Userid:{ type : ObjectId},
@@ -33,8 +12,9 @@ const userSchema = new mongoose.Schema({
 	email: { type: String, required: true },
 	password: { type: String, required: true },
 	cpassword: { type: String, required: true },
-	securityQuestion: { type: String,required: true},
+	securityQuestion: { type: String, required: true },
 	securityAnswer: { type: String, required: true },
+	isPremium: { type: Boolean, require: true, default: false }
 });
 
 userSchema.methods.generateAuthToken = function () {
