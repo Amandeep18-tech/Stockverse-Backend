@@ -14,7 +14,9 @@ const userSchema = new mongoose.Schema({
 	cpassword: { type: String, required: true },
 	securityQuestion: { type: String, required: true },
 	securityAnswer: { type: String, required: true },
-	isPremium: { type: Boolean, require: true, default: false }
+	isPremium: { type: Boolean, default: false },
+	role: { type: Boolean, default: false },
+	hash: {type: String, required: false},
 });
 
 userSchema.methods.generateAuthToken = function () {
