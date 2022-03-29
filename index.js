@@ -26,8 +26,8 @@ mongoose
 const userRouter = require("./routers/userRouter");
 const portfolioRouter = require("./routers/portfolioRouter");
 const wishlistRouter = require("./routers/wishlistRouter");
-/* const customBasketRouter = require("./routers/customBasketRouter");
-const paymentRouter = require("./routers/paymentRouter"); */
+const customBasketRouter = require("./routers/customBasketRouter");
+const paymentRouter = require("./routers/paymentRouter");
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -47,19 +47,17 @@ app.use(
     extended: false,
   })
 );
-
+app.use(express.json());
 app.use(cors(corsOptions));
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+
 app.use(bodyParser.json());
 
 // Routes
 app.use("/api", userRouter);
 app.use("/api", portfolioRouter);
 app.use("/api/wishlist", wishlistRouter);
-/* app.use("/api/customBasket", customBasketRouter);
-app.use("/api", paymentRouter); */
+app.use("/api/customBasket", customBasketRouter);
+app.use("/api", paymentRouter);
 
 // Welcome to API handler
 app.get("/", (req, res) => {
