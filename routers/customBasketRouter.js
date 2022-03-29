@@ -11,6 +11,7 @@ const {
 
 const customBasketRouter = express.Router();
 
+// mapping of the end-points with the different controllers
 customBasketRouter.get("/getCustomBasketList", getCustomBasket);
 customBasketRouter.post("/addCustomBasket", addCustomBasket);
 customBasketRouter.delete(
@@ -26,6 +27,7 @@ customBasketRouter.get(
   getCustomBasketByVisibility
 );
 
+//if the url does not matches with any end point then this response will be sent
 customBasketRouter.use("*", (req, res) => {
   res.status(400).json({ success: false, message: "Page not found" });
 });
