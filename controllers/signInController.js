@@ -22,7 +22,7 @@ exports.checkUser = async (req, res) => {
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
 		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "logged in successfully",id:user.id });
+		res.status(200).send({ data: token, message: "logged in successfully",id:user.id,isAdmin:user.role,isPremium:user.isPremium });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error",error: error.message });
 	
