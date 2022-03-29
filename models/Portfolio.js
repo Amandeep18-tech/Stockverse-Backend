@@ -30,8 +30,7 @@ const portfolioSchema = new mongoose.Schema(
     currency: {
       type: String,
       required: true,
-      enum: ['USD', 'INR', 'CAD'],
-      default: 'CAD',
+      default: 'USD',
     },
     buyQuantity: {
       type: Number,
@@ -40,6 +39,10 @@ const portfolioSchema = new mongoose.Schema(
     avgBuyPrice: {
       type: Number,
       required: true,
+    },
+    remarks: {
+      type: String,
+      default: 'NA',
     },
   },
   { timestamps: true }

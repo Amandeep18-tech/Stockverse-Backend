@@ -84,7 +84,7 @@ exports.getPortfolioRecord = async (req, res) => {
     const data = await Portfolio.findOne({
       _id: req.params.recordId.trim(),
       userId: req.profile.userId,
-    });
+    }).select('-__v -userId -_id');
 
     if (!data) {
       return res.status(404).json({
@@ -148,40 +148,40 @@ exports.getAllPortfoliosByUserId = async (req, res) => {
 
     const response = await Portfolio.find({ userId: req.profile.userId });
 
-    // const data = response.map(async (portfolio) => {
-    //   let response;
-    //   if (portfolio.instrumentType.toLowerCase() === 'Equity'.toLowerCase()) {
-    //     response = await getInstrumentData(portfolio.instrumentSymbol);
-    //   } else {
-    //     response = await getInstrumentDataCrypto(
-    //       portfolio.instrumentSymbol,
-    //       portfolio.currency.toUpperCase()
-    //     );
-    //   }
+    const data = response.map(async (portfolio) => {
+      let response;
+      if (portfolio.instrumentType.toLowerCase() === 'Equity'.toLowerCase()) {
+        response = await getInstrumentData(portfolio.instrumentSymbol);
+      } else {
+        response = await getInstrumentDataCrypto(
+          portfolio.instrumentSymbol,
+          portfolio.currency.toUpperCase()
+        );
+      }
 
-    //   // post getting the info from the API
-    //   if (response.status) {
-    //     const investmentValue = portfolio.avgBuyPrice * portfolio.buyQuantity;
-    //     const { matchedItem } = response;
-    //     const { close, open, changePercent } = matchedItem;
-    //     const currentValue = parseFloat(close) * portfolio.buyQuantity;
-    //     const profitLoss =
-    //       parseFloat(currentValue) - parseFloat(investmentValue);
+      // post getting the info from the API
+      if (response.status) {
+        const investmentValue = portfolio.avgBuyPrice * portfolio.buyQuantity;
+        const { matchedItem } = response;
+        const { close, open, changePercent } = matchedItem;
+        const currentValue = parseFloat(close) * portfolio.buyQuantity;
+        const profitLoss =
+          parseFloat(currentValue) - parseFloat(investmentValue);
 
-    //     return await Object.assign(portfolio._doc, {
-    //       investmentValue,
-    //       currentValue,
-    //       profitLoss,
-    //       changePercent,
-    //       open,
-    //     });
-    //   }
-    // });
+        return await Object.assign(portfolio._doc, {
+          investmentValue,
+          currentValue,
+          profitLoss,
+          changePercent,
+          open,
+        });
+      }
+    });
 
     debug('Testing local');
     // debug(data);
 
-    // const finalData = await Promise.all(data);
+    const finalData = await Promise.all(data);
 
     return res.status(200).json({
       success: true,
@@ -221,7 +221,9 @@ exports.getPortfolioDateMap = async (req, res) => {
       const last30Days = new Date(today.setDate(today.getDate() - 30));
       const last90Days = new Date(today.setDate(today.getDate() - 90));
 
-      if (creationDate.getTime() > last30Days.getTime()) {
+      if (creationDate.getDate() === today.getDate()) {
+        dateMap.today++;
+      } else if (creationDate.getTime() > last30Days.getTime()) {
         dateMap.last30Days += 1;
       } else if (creationDate.getTime() > last90Days.getTime()) {
         dateMap.last90Days += 1;
