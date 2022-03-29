@@ -11,7 +11,7 @@ const userRouter = express.Router();
 
 userRouter.post('/register',registerController.createUser);
 userRouter.post('/signin', signInController.checkUser);
-userRouter.get('/getRandomQuestion',securityQuestionController.getRandomQuestion);
+userRouter.get('/getRandomQuestion/:id',securityQuestionController.getRandomQuestion);
 userRouter.post('/checkUser',forgetPasswordController.verifyUser);
 userRouter.get('/getQuestion',forgetPasswordController.getSecurityQuestionOfUser);
 userRouter.post('/updatePassword',forgetPasswordController.updatePassword);
