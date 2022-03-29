@@ -1,12 +1,11 @@
-// Author : Sai Rahul Kodumuru (B00875628)
-
-
+// Author : Amandeep Singh Matta(B00886925)
 const { User } = require("../models/User");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 
-exports. checkUser = async (req, res) => {
+exports.checkUser = async (req, res) => {
 	try {
+		
 		const { error } = validate(req.body);
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
@@ -23,7 +22,7 @@ exports. checkUser = async (req, res) => {
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
 		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "logged in successfully" });
+		res.status(200).send({ data: token, message: "logged in successfully",id:user.id });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error",error: error.message });
 	

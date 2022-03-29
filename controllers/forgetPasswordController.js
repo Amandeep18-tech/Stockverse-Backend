@@ -1,36 +1,30 @@
 const { User } = require("../models/User");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
 exports.verifyUser = async (req, res) => {
     try {
-        const { error } = validate(req.body);
-        if (error)
-            return res.status(400).send({ message: error.details[0].message });
-
+        
         const user = await User.findOne({ email: req.body.email });
+        console.log(user);
         if (!user)
             return res.status(401).send({ message: "Invalid Email " });
-        res.status(200).send({ message: "User Found" });
+        res.status(200).send({ message: "User Found", id: user._id });
 
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error", error: error.message });
 
     }
 };
-const validate = (data) => {
-    const schema = Joi.object({
-        email: Joi.string().email().required().label("Email"),
-    });
-    return schema.validate(data);
-};
+
+
 
 exports.getSecurityQuestionOfUser = async (req, res) => {
     try {
-        const { error } = validate(req.body);
-        if (error)
-            return res.status(400).send({ message: error.details[0].message });
-
-        const user = await User.findOne({ email: req.body.email });
+        const {Userid} = req.params;
+        
+        const user =await User.findById({ _id:Userid });
+        
         if (!user)
             return res.status(401).send({ message: "Invalid Email " });
         res.status(200).send({ message: "Question found", question: user.securityQuestion });
@@ -42,13 +36,8 @@ exports.getSecurityQuestionOfUser = async (req, res) => {
 };
 exports.updatePassword = async (req, res) => {
     try {
-        const { error } = validateChangePassword(req.body);
-        if (error)
-            return res.status(400).send({ message: error.details[0].message });
-
-        const user = await User.findOne({ email: req.body.email });
-        if (!user)
-            return res.status(401).send({ message: "Invalid Email " });
+        const {Userid} = req.params;
+        const user =await User.findById({ _id:Userid });
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
 		
 		const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -62,12 +51,22 @@ exports.updatePassword = async (req, res) => {
 
     }
 };
+exports.verifyAnswer= async (req, res) => {
+    try {
+        
+        const user =await User.findById({ _id:req.body.id });
+		const hashAnswer = await bcrypt.hash(req.body.answer, user.hash);
+        console.log(hashAnswer);
+        console.log(user.securityAnswer);
+		if(hashAnswer===user.securityAnswer)
+		    res.status(200).send({ message: "Answer is correct", user: user });
+        else
+            res.status(200).send({ message: "Answer is false"});
+    } catch (error) {
+        res.status(500).send({ message: "Internal Server Error", error: error.message });
 
-
-const validateChangePassword = (data) => {
-	const schema = Joi.object({
-		email: Joi.string().email().required().label("Email"),
-		password: Joi.string().required().label("Password"),
-	});
-	return schema.validate(data);
+    }
 };
+
+
+

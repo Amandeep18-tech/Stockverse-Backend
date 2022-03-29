@@ -12,8 +12,12 @@ userRouter.post('/register',registerController.createUser);
 userRouter.post('/signin', signInController.checkUser);
 userRouter.get('/getRandomQuestion',securityQuestionController.getRandomQuestion);
 userRouter.post('/checkUser',forgetPasswordController.verifyUser);
-userRouter.get('/getQuestion',forgetPasswordController.getSecurityQuestionOfUser);
-userRouter.post('/updatePassword',forgetPasswordController.updatePassword);
+userRouter.get('/getQuestion/:Userid',forgetPasswordController.getSecurityQuestionOfUser);
+userRouter.post('/updatePassword/:Userid',forgetPasswordController.updatePassword);
+userRouter.get('/getRole/:Userid',userController.getRoleById);
+userRouter.post('/getRoleByEmail',userController.getRoleByEmail);
+userRouter.post('/verifyAnswer',forgetPasswordController.verifyAnswer);
+userRouter.get('/getDetails/:Userid',userController.getUserDetailsById);
 // Author : Pallavi Cherukupalli (B00887062)
 userRouter.get('/userList', userController.getAllusers);
 
