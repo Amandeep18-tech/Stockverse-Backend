@@ -5,6 +5,13 @@ function getRandomAPIKey() {
     process.env.AV_API_KEY_THREE,
     process.env.AV_API_KEY_FOUR,
     process.env.AV_API_KEY_FIVE,
+    process.env.AV_API_KEY_SIX,
+    process.env.AV_API_KEY_SEVEN,
+    process.env.AV_API_KEY_EIGHT,
+    process.env.AV_API_KEY_NINE,
+    process.env.AV_API_KEY_TEN,
+    process.env.AV_API_KEY_ELEVEN,
+    process.env.AV_API_KEY_TWELVE,
   ];
 
   return (
