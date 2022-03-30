@@ -1,3 +1,4 @@
+//Author : Parthkumar Patel (B00899800)
 const mongoose = require('mongoose');
 
 const WishlistSchema = new mongoose.Schema(
