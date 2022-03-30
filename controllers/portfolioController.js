@@ -5,66 +5,6 @@ const debug = require('debug')('app:PortfolioController');
 const CONSTANTS = require('../utils/constants');
 const axios = require('axios');
 
-const finalData = [
-  {
-    _id: '623b4a3546db488cc70a5464',
-    userId: '623fcb4036fe9031dcfd696e',
-    instrumentName: 'RELIANCE INDUSTRIES LTD',
-    instrumentSymbol: 'RELIANCE.BSE',
-    instrumentType: 'equity',
-    instrumentRegion: 'India/Bombay',
-    currency: 'INR',
-    buyQuantity: 25,
-    avgBuyPrice: 2500,
-    createdAt: '2022-03-23T16:26:29.061Z',
-    updatedAt: '2022-03-23T16:26:29.061Z',
-    __v: 0,
-    investmentValue: 82500,
-    currentValue: 64447.4975,
-    profitLoss: 1947.4974999999977,
-    changePercent: '0.7293%',
-    open: '2577.8999',
-  },
-  {
-    _id: '6240d495fc12eb52dfa3cd2b',
-    userId: '623fcb4036fe9031dcfd696e',
-    instrumentName: 'Wipro India',
-    instrumentSymbol: 'WIPRO.BSE',
-    instrumentType: 'Equity',
-    instrumentRegion: 'India/Bombay',
-    currency: 'INR',
-    buyQuantity: 100,
-    avgBuyPrice: 20,
-    createdAt: '2022-03-27T21:18:13.008Z',
-    updatedAt: '2022-03-27T21:18:13.008Z',
-    __v: 0,
-    investmentValue: 2000,
-    currentValue: 61085,
-    profitLoss: 59085,
-    changePercent: '-1.1787%',
-    open: '611.4000',
-  },
-  {
-    _id: '6240d603fc12eb52dfa3cd30',
-    userId: '623fcb4036fe9031dcfd696e',
-    instrumentName: 'Etherum',
-    instrumentSymbol: 'ETH.INR',
-    instrumentType: 'Crypto',
-    instrumentRegion: 'Indian Rupee',
-    currency: 'INR',
-    buyQuantity: 2,
-    avgBuyPrice: 1092,
-    createdAt: '2022-03-27T21:24:19.928Z',
-    updatedAt: '2022-03-27T21:24:19.928Z',
-    __v: 0,
-    investmentValue: 2184,
-    currentValue: 505193.2864,
-    profitLoss: 503009.2864,
-    changePercent: 0.47911641102665264,
-    open: '251392.18200000',
-  },
-];
-
 exports.getPortfolioRecord = async (req, res) => {
   try {
     if (!req.profile.userId) {
