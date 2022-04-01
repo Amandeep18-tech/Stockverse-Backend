@@ -13,9 +13,8 @@ function getRandomAPIKey() {
     process.env.AV_API_KEY_ELEVEN,
     process.env.AV_API_KEY_TWELVE,
   ];
-
   return (
-    keys[Math.floor(Math.random() * keys.length)] || process.env.AV_API_KEY_ONE
+    process.env.AV_API_KEY_ONE || keys[Math.floor(Math.random() * keys.length)]
   );
 }
 
