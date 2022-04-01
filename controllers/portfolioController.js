@@ -118,14 +118,14 @@ exports.getAllPortfoliosByUserId = async (req, res) => {
       }
     });
 
-    debug('Testing local');
-    // debug(data);
+    // debug('Testing local');
 
     const finalData = await Promise.all(data);
 
-    return res.status(200).json({
+    return await res.status(200).json({
       success: true,
-      data: finalData,
+      // filter out the null values in finalData
+      data: finalData.filter((item) => item !== null),
     });
   } catch (err) {
     debug(err);
@@ -292,7 +292,6 @@ const getInstrumentData = async (symbol) => {
     if (country === 'USA') redefinedSymbol = symbol.replace('.USA', '');
 
     const url = CONSTANTS.GLOBAL_QUOTE(redefinedSymbol);
-    // debug(url);
     const response = await axios.get(url);
     const { data } = await response;
     const matchedItem = await data['Global Quote'];
@@ -321,7 +320,7 @@ const getInstrumentDataCrypto = async (symbol, currency) => {
     const { data } = await response;
     const matchedItem = await data['Time Series (Digital Currency Daily)'];
     const [firstKey] = Object.keys(matchedItem);
-    const latestObject = matchedItem[firstKey];
+    const latestObject = await matchedItem[firstKey];
 
     if (latestObject) {
       if (
