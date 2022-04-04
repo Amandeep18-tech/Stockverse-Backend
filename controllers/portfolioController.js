@@ -161,7 +161,8 @@ exports.getPortfolioDateMap = async (req, res) => {
       const last30Days = new Date(today.setDate(today.getDate() - 30));
       const last90Days = new Date(today.setDate(today.getDate() - 90));
 
-      if (creationDate.getDate() === today.getDate()) {
+      // new Date() to make sure , the date object is not mutated
+      if (creationDate.getDate() === new Date().getDate()) {
         dateMap.today++;
       } else if (creationDate.getTime() > last30Days.getTime()) {
         dateMap.last30Days += 1;
