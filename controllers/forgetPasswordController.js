@@ -8,7 +8,7 @@ exports.verifyUser = async (req, res) => {
         const user = await User.findOne({ email: req.body.email });
         console.log(user);
         if (!user)
-            return res.status(401).send({ message: "Invalid Email " });
+            return res.status(401).send({ message: "User not found " });
         res.status(200).send({ message: "User Found", id: user._id });
 
     } catch (error) {
@@ -39,12 +39,34 @@ exports.updatePassword = async (req, res) => {
         const {Userid} = req.params;
         const user =await User.findById({ _id:Userid });
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
-		
+		console.log(user);
+        
 		const hashPassword = await bcrypt.hash(req.body.password, salt);
+    
         user.password=hashPassword;
         user.cpassword=hashPassword;
-        user.save;
-        res.status(200).send({ message: "Password Changed", user: user });
+
+        const data = await User.findOneAndUpdate(
+            {
+              _id: Userid,
+            },
+            {password:hashPassword,cpassword:hashPassword},
+            { new: true }
+          );
+      
+          if (!data) {
+            return res.status(404).json({
+              success: false,
+              message: 'Invalid User id for given userId',
+            });
+          }
+      
+          return res.status(200).json({
+            success: true,
+            message: 'Password changed successfully',
+          });
+       
+
 
     } catch (error) {
         res.status(500).send({ message: "Internal Server Error", error: error.message });
