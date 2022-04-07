@@ -29,6 +29,7 @@ const portfolioRouter = require("./routers/portfolioRouter");
 const wishlistRouter = require("./routers/wishlistRouter");
 const customBasketRouter = require("./routers/customBasketRouter");
 const paymentRouter = require("./routers/paymentRouter");
+const blogRouter = require("./routers/blogRouter");
 const sendPromotionsRouter= require("./routers/sendPromotionsRouter");
 
 const allowedOrigins = [
@@ -58,6 +59,7 @@ app.use("/api/wishlist", wishlistRouter);
 app.use("/api/customBasket", customBasketRouter);
 app.use("/api", paymentRouter);
 app.use("/api", sendPromotionsRouter);
+app.use('/api/blogs', blogRouter);
 
 // Welcome to API handler
 app.get('/', (req, res) => {
