@@ -24,11 +24,13 @@ mongoose
   });
 
 // Get the Routers
-const userRouter = require('./routers/userRouter');
-const portfolioRouter = require('./routers/portfolioRouter');
-const wishlistRouter = require('./routers/wishlistRouter');
-const customBasketRouter = require('./routers/customBasketRouter');
-const paymentRouter = require('./routers/paymentRouter');
+const userRouter = require("./routers/userRouter");
+const portfolioRouter = require("./routers/portfolioRouter");
+const wishlistRouter = require("./routers/wishlistRouter");
+const customBasketRouter = require("./routers/customBasketRouter");
+const paymentRouter = require("./routers/paymentRouter");
+const blogRouter = require("./routers/blogRouter");
+const sendPromotionsRouter= require("./routers/sendPromotionsRouter");
 
 const allowedOrigins = [
   'http://localhost:3003',
@@ -51,11 +53,13 @@ app.use(morgan('tiny'));
 app.use(cors(corsOptions));
 
 // Routes
-app.use('/api', userRouter);
-app.use('/api', portfolioRouter);
-app.use('/api/wishlist', wishlistRouter);
-app.use('/api/customBasket', customBasketRouter);
-app.use('/api', paymentRouter);
+app.use("/api", userRouter);
+app.use("/api", portfolioRouter);
+app.use("/api/wishlist", wishlistRouter);
+app.use("/api/customBasket", customBasketRouter);
+app.use("/api", paymentRouter);
+app.use("/api", sendPromotionsRouter);
+app.use('/api/blogs', blogRouter);
 
 // Welcome to API handler
 app.get('/', (req, res) => {
