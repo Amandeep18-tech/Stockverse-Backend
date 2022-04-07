@@ -70,22 +70,32 @@ exports.updateUserSubscription = async (userId) => {
     return err;
   }
 };
+
+exports.getUsersBySubscription = async (isPremium) => {
+  try {
+    const usersList = await User.find({isPremium});
+    return usersList;
+  } catch (err) {
+    return err;
+  }
+};
+
 //Author Amandeep Singh Matta(B00886925)
 exports.getRoleById = async (req, res) => {
   try {
-      const {Userid} = req.params;
-      
-      const user =await User.findById({ _id:Userid });
-      
-      if (!user)
-          return res.status(401).send({ message: "Invalid Email " });
-      if(user.role)
-        res.status(200).send({ message: "The user is admin", role: user.role });
-      else
-        res.status(200).send({ message: "This is a normal user", role: user.role });
+    const { Userid } = req.params;
+
+    const user = await User.findById({ _id: Userid });
+
+    if (!user)
+      return res.status(401).send({ message: "Invalid Email " });
+    if (user.role)
+      res.status(200).send({ message: "The user is admin", role: user.role });
+    else
+      res.status(200).send({ message: "This is a normal user", role: user.role });
 
   } catch (error) {
-      res.status(500).send({ message: "Internal Server Error", error: error.message });
+    res.status(500).send({ message: "Internal Server Error", error: error.message });
 
   }
 };
@@ -93,37 +103,37 @@ exports.getRoleById = async (req, res) => {
 
 exports.getRoleByEmail = async (req, res) => {
   try {
-      
-      
-      const user =await User.findOne({ email: req.body.email });
-      
-      if (!user)
-          return res.status(401).send({ message: "Invalid Email " });
-      if(user.role)
-        res.status(200).send({ message: "The user is admin", role: user.role });
-      else
-        res.status(200).send({ message: "This is a normal user", role: user.role });
+
+
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user)
+      return res.status(401).send({ message: "Invalid Email " });
+    if (user.role)
+      res.status(200).send({ message: "The user is admin", role: user.role });
+    else
+      res.status(200).send({ message: "This is a normal user", role: user.role });
 
   } catch (error) {
-      res.status(500).send({ message: "Internal Server Error", error: error.message });
+    res.status(500).send({ message: "Internal Server Error", error: error.message });
 
   }
 };
 
 exports.getUserDetailsById = async (req, res) => {
   try {
-    const {Userid} = req.params;
-    
-    const user =await User.findById({ _id:Userid });
-    
-    if (!user)
-        return res.status(401).send({ message: "Invalid Email " });
-    
-    if(user)
-        res.status(200).send({ message: "User Details", email:user.email,firstName:user.firstName,lastName:user.lastName });
+    const { Userid } = req.params;
 
-} catch (error) {
+    const user = await User.findById({ _id: Userid });
+
+    if (!user)
+      return res.status(401).send({ message: "Invalid Email " });
+
+    if (user)
+      res.status(200).send({ message: "User Details", email: user.email, firstName: user.firstName, lastName: user.lastName });
+
+  } catch (error) {
     res.status(500).send({ message: "Internal Server Error", error: error.message });
 
-}
+  }
 }
